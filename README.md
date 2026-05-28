@@ -1,11 +1,11 @@
-# TakingNotes
+# ScanFidel
 
-Cette application est une application web de prise de note. Elle permet de gérer des notes via des dossiers ou des tags. On peut également ajouter des rappels et mettre les notes dans des calendriers comme Google Calendar, Outlook Calendar, etc. De plus, on peut partager des notes avec d'autres utilisateurs et collaborer dessus.
+Cette application est une web app de gestion de cartes de fidélité. Elle permet de scanner des cartes de fidélité et de les stocker dans une base de données. L'utilisateur voit les cartes scanner et les nommer comme il veut.
 
 ## Stack
 
-- Express
-- React
+- Supabase
+- Python
 - Docker
 
 ## Lancer le projet
