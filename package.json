@@ -12,7 +12,7 @@
     "lint": "ruff check backend/",
     "format": "black backend/",
     "test": "pytest backend/",
-    "test:coverage": "pytest --cov=backend backend/",
+    "test:coverage": "python3 -m pytest --cov=backend --cov-report=html:coverage backend/",
     "prepare": "husky"
   },
   "repository": {
