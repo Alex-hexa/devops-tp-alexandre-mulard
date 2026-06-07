@@ -20,6 +20,11 @@ docker compose up --build api-dev web
 docker compose up --build api-prod web
 ```
 
+### Pour accéder au site
+```bash
+http://localhost:8080
+```
+
 ## Tester
 
 ## Architecture
