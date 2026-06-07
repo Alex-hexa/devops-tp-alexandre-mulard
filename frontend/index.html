@@ -14,10 +14,18 @@
             <p>Gestion de cartes de fidélité.</p>
         </header>
 
-        <section class="scan-section">
-            <input type="text" id="card-name" placeholder="Nom de la carte (ex: Fnac)">
+                <section class="scan-section">
+            <input type="text" id="card-name" placeholder="Nom de la carte (ex: Juva Santé)">
+            
+            <input type="text" id="card-code-manual" placeholder="Numéro du code (si le scan échoue)">
+            
             <label for="camera-input" class="btn">Scanner un code-barres</label>
             <input type="file" id="camera-input" accept="image/*" capture="environment" style="display: none;">
+            
+            <button id="save-manual-btn" class="btn" style="margin-top: 15px; background-color: #34c759;">
+                Enregistrer manuellement
+            </button>
+
             <div id="scan-feedback" class="feedback"></div>
         </section>
 
@@ -28,8 +36,7 @@
     </main>
 
     <script>
-        // L'URL cible désormais le container Backend
-        const API_URL = "http://localhost:5000/api/cards";
+        const API_URL = `http://${window.location.hostname}:5001/api/cards`;
         const cameraInput = document.getElementById('camera-input');
         const cardNameInput = document.getElementById('card-name');
         const feedback = document.getElementById('scan-feedback');
@@ -76,6 +83,18 @@
                     `).join('') : '<p class="feedback">Aucune carte.</p>';
                 });
         }
+
+        document.getElementById('save-manual-btn').addEventListener('click', () => {
+            const cardName = cardNameInput.value.trim();
+            const manualCode = document.getElementById('card-code-manual').value.trim();
+
+            if (!cardName || !manualCode) {
+                return alert("Veuillez saisir un nom et le numéro du code-barres.");
+            }
+            
+            feedback.innerText = "Enregistrement manuel...";
+            saveCard(cardName, manualCode);
+        });
 
         loadCards();
     </script>
