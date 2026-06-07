@@ -18,12 +18,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: 'package-lock.json'
 
     - name: Configuration de Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
         cache: 'pip'
+        cache-dependency-path: 'backend/requirements.txt'
 
     - name: Installation des dépendances Node (Husky)
       run: npm install
