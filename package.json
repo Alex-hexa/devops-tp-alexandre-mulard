@@ -32,8 +32,8 @@
   },
   "lint-staged": {
     "backend/**/*.py": [
-      "black",
-      "ruff check --fix"
+      "python3 -m black",
+      "python3 -m ruff check --fix"
     ]
   }
 }
