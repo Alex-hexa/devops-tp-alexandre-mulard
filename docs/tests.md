@@ -18,3 +18,6 @@
    - **Test d'Intégration (Mock) :** Simuler un retour de Supabase et vérifier la structure JSON renvoyée par l'API.
 
 ## Couverture de Code (T21)
+L'objectif de 60% de couverture est atteint et dépassé. Voici le rapport généré par Pytest :
+
+![Rapport de couverture](images/Coverage.png)
