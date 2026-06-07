@@ -36,3 +36,6 @@ jobs:
 
     - name: Exécution des tests et de la couverture
       run: npm run test:coverage
+
+    - name: Vérification du Build Docker
+      run: docker compose build
