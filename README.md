@@ -10,9 +10,14 @@ Cette application est une web app de gestion de cartes de fidélité. Elle perme
 
 ## Lancer le projet
 
+### Pour l'environnement de dev
 ```bash
-docker compose build
-docker compose up
+docker compose up --build api-dev web
+```
+
+### Pour l'environnement de prod
+```bash
+docker compose up --build api-prod web
 ```
 
 ## Tester
