@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScanFidel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body>
+    <main class="app-container">
+        <header class="app-header">
+            <h1>ScanFidel</h1>
+            <p>Gestion de cartes de fidélité.</p>
+        </header>
+
+        <section class="scan-section">
+            <input type="text" id="card-name" placeholder="Nom de la carte (ex: Fnac)">
+            <label for="camera-input" class="btn">Scanner un code-barres</label>
+            <input type="file" id="camera-input" accept="image/*" capture="environment" style="display: none;">
+            <div id="scan-feedback" class="feedback"></div>
+        </section>
+
+        <section class="cards-section">
+            <h2>Mes Cartes</h2>
+            <div id="cards-list"></div>
+        </section>
+    </main>
+
+    <script>
+        // L'URL cible désormais le container Backend
+        const API_URL = "http://localhost:5000/api/cards";
+        const cameraInput = document.getElementById('camera-input');
+        const cardNameInput = document.getElementById('card-name');
+        const feedback = document.getElementById('scan-feedback');
+        const cardsList = document.getElementById('cards-list');
+        const html5QrCode = new Html5Qrcode("scan-feedback");
+
+        cameraInput.addEventListener('change', event => {
+            const file = event.target.files[0];
+            const cardName = cardNameInput.value.trim();
+
+            if (!cardName) return alert("Veuillez saisir un nom pour la carte.");
+            if (file) {
+                feedback.innerText = "Analyse...";
+                html5QrCode.scanFile(file, true)
+                    .then(code => saveCard(cardName, code))
+                    .catch(() => feedback.innerText = "Code non détecté.");
+            }
+        });
+
+        function saveCard(name, code) {
+            fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, code })
+            })
+            .then(res => res.json())
+            .then(() => {
+                feedback.innerText = "Carte ajoutée !";
+                cardNameInput.value = "";
+                cameraInput.value = "";
+                loadCards();
+            });
+        }
+
+        function loadCards() {
+            fetch(API_URL)
+                .then(res => res.json())
+                .then(data => {
+                    cardsList.innerHTML = data.length ? data.map(card => `
+                        <div class="card-item">
+                            <span class="card-title">${card.name}</span>
+                            <span class="card-code">Code: ${card.code}</span>
+                        </div>
+                    `).join('') : '<p class="feedback">Aucune carte.</p>';
+                });
+        }
+
+        loadCards();
+    </script>
+</body>
+</html>
