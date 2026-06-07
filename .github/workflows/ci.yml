@@ -1,0 +1,38 @@
+name: CI ScanFidel
+
+on:
+  push:
+    branches: [ "main", "developp" ]
+  pull_request:
+    branches: [ "developp" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Récupération du code
+      uses: actions/checkout@v4
+
+    - name: Configuration de Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Configuration de Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Installation des dépendances Node (Husky)
+      run: npm install
+
+    - name: Installation des dépendances Python
+      run: pip install -r backend/requirements.txt
+
+    - name: Vérification de la qualité du code (Ruff)
+      run: npm run lint
+
+    - name: Exécution des tests et de la couverture
+      run: npm run test:coverage
