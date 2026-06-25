@@ -57,3 +57,5 @@ __pycache__/
 # Rapports de tests
 coverage/
 .coverage
+
+.env
