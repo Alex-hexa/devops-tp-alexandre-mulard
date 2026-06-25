@@ -1,0 +1,39 @@
+{
+  "name": "devops-tp-alexandre-mulard",
+  "version": "1.0.0",
+  "description": "Cette application est une web app de gestion de cartes de fidélité. Elle permet de scanner des cartes de fidélité et de les stocker dans une base de données. L'utilisateur voit les cartes scanner et les nommer comme il veut.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "docker compose up api-prod web",
+    "dev": "docker compose up --build api-dev web",
+    "lint": "ruff check backend/",
+    "format": "black backend/",
+    "test": "pytest backend/",
+    "test:coverage": "python3 -m pytest --cov=backend --cov-report=html:coverage backend/",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alex-hexa/devops-tp-alexandre-mulard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alex-hexa/devops-tp-alexandre-mulard/issues"
+  },
+  "homepage": "https://github.com/Alex-hexa/devops-tp-alexandre-mulard#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0"
+  },
+  "lint-staged": {
+    "backend/**/*.py": [
+      "python3 -m black",
+      "python3 -m ruff check --fix"
+    ]
+  }
+}
