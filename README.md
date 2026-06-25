@@ -21,9 +21,9 @@ docker compose up --build api-dev web
 docker compose up --build api-prod web
 ```
 
-### Pour accéder au site
+### Pour accéder au site (Render)
 ```bash
-http://localhost:8080
+https://scanfidel-api.onrender.com/health
 ```
 
 ## Tester
