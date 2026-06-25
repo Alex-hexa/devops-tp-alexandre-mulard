@@ -42,3 +42,9 @@ jobs:
 
     - name: Vérification du Build Docker
       run: docker compose build
+
+    - name: Exécution des tests et de la couverture
+      run: npm run test:coverage
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
